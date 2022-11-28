@@ -157,7 +157,7 @@ SR[SR < thresholdValue] <- NA
 plot(SR)
 
 ## -----------------------------------------------------------------------------
-PAs <- rgdal::readOGR(paste0(system.file(package="changeRangeR"), "/extdata/DemoData/shapefiles"), "WDPA_COL_olinguito_simp")
+PAs <- readRDS(file.path(system.file(package="changeRangeR"), "extdata/DemoData/shapefiles", "WDPA_COL_olinguito_simp.rds"))
 # View the fields
 colnames(PAs)
 # Pick the field you are interested in
@@ -171,7 +171,7 @@ SR <- sum(primRas, na.rm = T)
 SR[SR == 0] <- NA
 
 ## -----------------------------------------------------------------------------
-PAs <- rgdal::readOGR(paste0(system.file(package="changeRangeR"), "/extdata/DemoData/shapefiles"), "WDPA_COL_olinguito_simp")
+PAs <- readRDS(file.path(system.file(package="changeRangeR"), "extdata/DemoData/shapefiles", "WDPA_COL_olinguito_simp.rds"))
 # View the fields
 colnames(PAs)
 # Pick the field you are interested in
