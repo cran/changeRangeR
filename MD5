@@ -1,5 +1,6 @@
-0ebe256a4ba383436f5f7a8f132125c2 *DESCRIPTION
+1d4b41d3ca9e88d4ac1151309fb92ff4 *DESCRIPTION
 031af8234ad76481645504ae0569ba78 *NAMESPACE
+2755cde6139914c1848fff7868b68dad *NEWS.md
 5b7b0b27caa734faa1b070805421aaf5 *R/PD_from_rasters.R
 d6c91a59e549b9b8363582fe00ae5cba *R/SE.R
 91ac3633ea49e3b284cc0e1e99d11b82 *R/aooArea.R
@@ -12,14 +13,15 @@ d0b7a32c7dcadc44f555689e403e9b87 *R/futureOverlap.R
 39d4379b2ff4e85835a895be990d9db7 *R/mcpSDM.R
 1ecb98c072f17558f6473caf50fffea6 *R/ratioOverlap.R
 e8d8b561ce49545824091b793b8e6f1b *R/startup.r
+e0be599e40267c00a3aa721b8cb3936d *README.md
 ea124a494ad7922985532ad3b308e4d5 *build/partial.rdb
 2ff34cd5e8261e854d1bf286bc2ebf8b *build/vignette.rds
 5a539d10e014696d1c7532ed5de92dfd *inst/doc/BiodivMetrics.R
 1c4f86e49f00256bd0493be1b21ee13b *inst/doc/BiodivMetrics.Rmd
-a90afbcdfedfe498ba957ff6677a7307 *inst/doc/BiodivMetrics.pdf
+ae42b3f864d841189bfe43219e1e6241 *inst/doc/BiodivMetrics.pdf
 a5b2c2eef5a764aab7c40d9b398f25bc *inst/doc/singleSpeciesMetrics.R
-f65f0410681547ddc91ca3aed404f384 *inst/doc/singleSpeciesMetrics.Rmd
-7189a9069ed76aa6f0c4a6aa1f19e81f *inst/doc/singleSpeciesMetrics.pdf
+f386d44ad51c80dde675ac460a16211e *inst/doc/singleSpeciesMetrics.Rmd
+21b0457696b357ff0a7b16d6b288b263 *inst/doc/singleSpeciesMetrics.pdf
 a14a42ce791f75d64918d91876258ba4 *inst/extdata/DemoData/MODIS/2005_olinguito_Modis_coarse.tif
 9eec82c48935f313a42e6198e6646efe *inst/extdata/DemoData/MODIS/2006_olinguito_Modis_coarse.tif
 4bc032517313e7185ee6cbf86ad08f3f *inst/extdata/DemoData/MODIS/2008_olinguito_Modis_coarse.tif
@@ -91,4 +93,4 @@ ae2dad942172359fe4675d1ab02e205e *tests/testthat/test_mcp.R
 4aa2e91beedc0f1b5a46caf9ce2e8698 *tests/testthat/test_mcpSDM.R
 ddb76735483eae744e0196ac2da1b615 *tests/testthat/test_ratioOverlap.R
 1c4f86e49f00256bd0493be1b21ee13b *vignettes/BiodivMetrics.Rmd
-f65f0410681547ddc91ca3aed404f384 *vignettes/singleSpeciesMetrics.Rmd
+f386d44ad51c80dde675ac460a16211e *vignettes/singleSpeciesMetrics.Rmd
