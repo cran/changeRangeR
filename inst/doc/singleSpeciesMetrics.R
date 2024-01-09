@@ -1,11 +1,9 @@
 ## ----setup, include=FALSE-----------------------------------------------------
 knitr::opts_chunk$set(echo = TRUE, warning=FALSE)
 
-## ---- message = F, warning = F------------------------------------------------
+## ----message = F, warning = F-------------------------------------------------
 library(changeRangeR)
 library(raster)
-library(rgeos)
-library(rgdal)
 library(sf)
 library(dplyr)
 
@@ -73,11 +71,12 @@ p <- raster(paste0(system.file(package="changeRangeR"), "/extdata/DemoData/SDM/o
 xy <- read.csv(paste0(system.file(package="changeRangeR"), "/extdata/DemoData/locs/10KM_thin_2017.csv"))
 ch.orig <- mcp(xy[,1:2])
 thr <- 0.3380209
+sf_use_s2(FALSE)
 SDMeoo <- mcpSDM(p = p, xy = xy[,1:2], ch.orig = ch.orig, thr = thr)
 # Check the output
 SDMeoo
 
-## ---- warning = F-------------------------------------------------------------
+## ----warning = F--------------------------------------------------------------
 r <- raster(paste0(system.file(package="changeRangeR"), "/extdata/DemoData/SDM/Forest_suitable_projected_coarse.tif"))
 shp <- readRDS(file.path(system.file(package="changeRangeR"), "extdata/DemoData/shapefiles", "WDPA_COL_olinguito_simp.rds"))
 # set the projections to match

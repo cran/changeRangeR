@@ -1,8 +1,7 @@
 ## ----setup, include=FALSE-----------------------------------------------------
 knitr::opts_chunk$set(echo = TRUE, warning = F)
 
-## -----------------------------------------------------------------------------
-library(rgdal)
+## ----results='hide'-----------------------------------------------------------
 library(raster)
 library(picante)
 library(phylobase)

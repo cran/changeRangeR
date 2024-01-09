@@ -1,3 +1,25 @@
+# changeRangeR: An R package for reproducible biodiversity change metrics
+# from species distribution estimates.
+#
+# ratioOverlap.R
+# File author: Wallace EcoMod Dev Team. 2023.
+# --------------------------------------------------------------------------
+# This file is part of the changeRangeR R package.
+#
+# changeRangeR is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or (at your option) any later version.
+#
+# changeRangeR is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with changeRangeR. If not, see <http://www.gnu.org/licenses/>.
+# --------------------------------------------------------------------------
+#
 #' @title Calculate the proportion of a range area that is either 1: contained by geographic categories, or 2: correlated with
 #' a continuous environmental layer.
 #' @description Calculate the proportion of the species' range (e.g., a thresholded SDM) that is contained by landcover categories
@@ -13,7 +35,7 @@
 #' @param subfield boolean. If TRUE, the overlap ratio of all unique categories of shp will be calculated.
 #' @param quant Either the character string "quartile" for the ratio of each quartile, or a concatenation of values to use instead.
 #' @return a list of three objects. The first object is a raster object showing the masked range. The second is a character showing the
-#' percentagse of range within the category of interest. The third shows the correlation with rasMask if it is supplied.
+#' percentage of range within the category of interest. The third shows the correlation with rasMask if it is supplied.
 #' @examples
 #' # create binary raster
 #' r <- raster::raster(nrows=108, ncols=108, xmn=-50, xmx=50)
@@ -59,16 +81,10 @@ ratioOverlap <- function(r, shp = NULL, rasMask = NULL, field = NULL, category =
   #setClass("ratioOverlap", slots = list(maskedRange = "RasterLayer", ratio = "character"))
   #require(sf)
   #require(raster)
-  #require(rgeos)
   #require(dplyr)
 
   ## if r is a shapefile
   if(!("RasterLayer" %in% class(r)) & !("RasterLayer" %in% class(shp))){
-    r <- rgeos::gBuffer(r, byid = T, width = 0)
-    shp <- rgeos::gBuffer(shp, byid = T, width = 0)
-    r <- sf::st_as_sf(r)
-    shp <- sf::st_as_sf(shp)
-
     if(subfield == FALSE){
       if(category == "All"){
         maskedRange <- sf::st_intersection(r, shp)

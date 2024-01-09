@@ -1,15 +1,37 @@
+# changeRangeR: An R package for reproducible biodiversity change metrics
+# from species distribution estimates.
+#
+# PD_from_rasters.R
+# File author: Wallace EcoMod Dev Team. 2023.
+# --------------------------------------------------------------------------
+# This file is part of the changeRangeR R package.
+#
+# changeRangeR is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or (at your option) any later version.
+#
+# changeRangeR is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with changeRangeR. If not, see <http://www.gnu.org/licenses/>.
+# --------------------------------------------------------------------------
+#
 # ######Phylogenetic diversity from distribution models in tif format and phylogenies in nexus format######
 # ###This script applies to any distribution map in raster format changing only the extension type in line 52###
 # #############Last updated January 2014 by Andrea Paz#################
+# #############Last updated October 2023 by BAJ#################
 #
 #
 # #Clean workspace
 # rm(list=ls())
 #
 # #Load required packages
-# library(maptools)
 # library(raster)
-# library(rgdal)
+# library(sf)
 # library(picante)
 # #####Function to load and crop rasters######
 #
@@ -142,7 +164,7 @@
 # res(r)<-resolution
 # r<-crop(r,extent(selected_mask))
 # values(r)<-0
-# map<-readOGR(dsn=maps_folder,layer=species_names[[1]])
+# map<-readOGR(dsn=maps_folder,layer=species_names[[1]]) #this will need to be replaced with st_read() BAJ
 # r<-rasterize(map,r,map$PRESENCE,update=T)
 # r<-mask(r,selected_mask)
 # pd_ras<-r

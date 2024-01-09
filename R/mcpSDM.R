@@ -1,3 +1,25 @@
+# changeRangeR: An R package for reproducible biodiversity change metrics
+# from species distribution estimates.
+#
+# mcpSDM.R
+# File author: Wallace EcoMod Dev Team. 2023.
+# --------------------------------------------------------------------------
+# This file is part of the changeRangeR R package.
+#
+# changeRangeR is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License,
+# or (at your option) any later version.
+#
+# changeRangeR is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with changeRangeR. If not, see <http://www.gnu.org/licenses/>.
+# --------------------------------------------------------------------------
+#
 #' @name mcpSDM
 #' @title SDM-based Minimum Convex Hull Polygon
 #' @param p Raster* object of a continuous species distribution model prediction to base hull calculation on
@@ -19,17 +41,20 @@
 #' @return a list of 5 objects.
 #' @references Syfert, M. M., Joppa, L., Smith, M. J., Coomes, D. A., Bachman, S. P., & Brummitt, N. A. (2014). Using species distribution models to inform IUCN Red List assessments. Biological Conservation, 177, 174–184. https://doi.org/10.1016/j.biocon.2014.06.012
 #' @examples
+#' \donttest{
 #' # create continuous raster
 #' p <- raster::raster(nrows=108, ncols=108, xmn=-50, xmx=50)
 #' raster::values(p)<- runif(n = (108*108))
+#' raster::crs(p) <- "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"
 #' # create occurrences
 #' xy <- dismo::randomPoints(p, 4)
 #' # create original convex hull
-#' ch.orig <- mcp(xy)
+#' ch.orig <- mcp(xy, crs = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
 #' # set threshold
 #' thr <- 0.5
 #' # mcpSDM
 #' mcpSDM(p, xy, ch.orig, thr)
+#' }
 #' @export
 #'
 
@@ -49,14 +74,22 @@ mcpSDM <- function(p, xy, ch.orig, thr) {
     p.i.xy <- raster::rasterToPoints(p.i)
     if(nrow(p.i.xy) > 1) {
       ch.i <- changeRangeR::mcp(p.i.xy[,1:2], crs = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
-      ov.xy <- rgeos::gIntersection(ch.i, sp::SpatialPoints(xy, proj4string = raster::crs(ch.i)))
-      if(!is.null(ov.xy)) ov.pts.vec[i] <- nrow(ov.xy@coords)
+      ch.i.sf <- sf::st_as_sf(ch.i)
+      xy.sf <- sf::st_as_sf(sp::SpatialPoints(xy, proj4string = raster::crs(ch.i)))
+      ov.xy <- sf::st_intersection(ch.i.sf, xy.sf)
+      if(nrow(ov.xy) > 0) {
+        ov.xy.sp <- sf::as_Spatial(ov.xy)
+        ov.pts.vec[i] <- nrow(ov.xy.sp@coords)
+        }
       ch.vec[[i]] <- ch.i
-      ov <- rgeos::gIntersection(ch.i, ch.orig)
-      if(!is.null(ov)) {
+      if(sf::st_crs(ch.i.sf) != sf::st_crs(ch.orig)) {
+        sf::st_crs(ch.i.sf) <- sf::st_crs(ch.orig)
+      }
+      ov.sf <- sf::st_intersection(ch.i.sf, sf::st_as_sf(ch.orig))
+      if(nrow(ov.sf) > 0) {
         A <- raster::area(ch.i)
         B <- raster::area(ch.orig)
-        C <- raster::area(ov)
+        C <- raster::area(sf::as_Spatial(ov.sf))
         jsi.vec[i] <- C / (A + B - C)
       }
     }
